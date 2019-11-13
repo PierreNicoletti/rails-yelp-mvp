@@ -2,7 +2,9 @@ class RestaurantsController < ApplicationController
   before_action :find_restaurant, only: [:show]
 
   def index
+    query = params[:search]
     @restaurants = Restaurant.all
+    @restaurants = Restaurant.where(("category LIKE '%#{query}%'")) if query
   end
 
   def show

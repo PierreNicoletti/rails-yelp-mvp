@@ -1,23 +1,24 @@
-
 <% @restaurants.each do |restaurant| %>
-<div class="card mt-4">
-  <div class="card-header">
-    <% if restaurant.reviews.count > 0 %>
-      <% ratings_array = restaurant.reviews.map { |review| review.rating } %>
-      <% average_rating = ratings_array.sum.fdiv(restaurant.reviews.count).round  %>
-      <% average_rating.times { %> <%= "⭐️" %> <% } %> (<%= restaurant.reviews.count %> ratings)
-    <% else %>
-      <em>No rating yet for this restaurant</em>
-    <% end %>
-    <!-- <% img_url="https://source.unsplash.com/featured/?restaurant,#{restaurant.category}" %> -->
-    <!-- <img src=<%= img_url %> class="card-img-top h-100" alt="..."> -->
+  <div class="card mt-4" id="restaurants">
+    <div class="restaurant">
+      <div class="card-header">
+        <% if restaurant.reviews.count > 0 %>
+          <% ratings_array = restaurant.reviews.map { |review| review.rating } %>
+          <% average_rating = ratings_array.sum.fdiv(restaurant.reviews.count).round  %>
+          <% average_rating.times { %> <%= "⭐️" %> <% } %> (<%= restaurant.reviews.count %> ratings)
+        <% else %>
+          <em>No rating yet for this restaurant</em>
+        <% end %>
+        <!-- <% img_url="https://source.unsplash.com/featured/?restaurant,#{restaurant.category}" %> -->
+        <!-- <img src=<%= img_url %> class="card-img-top h-100" alt="..."> -->
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= restaurant.name %></h5>
+        <p class="card-text">Category: <div id="category"><%= restaurant.category %></div></p>
+        <p class="card-text">Address: <%= restaurant.address %></p>
+        <p class="card-text">Phone number: <%= restaurant.phone_number %></p>
+        <%= link_to "See details", restaurant_path(restaurant), class: "btn btn-primary"%>
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-    <h5 class="card-title"><%= restaurant.name %></h5>
-    <p class="card-text">Category: <%= restaurant.category %></p>
-    <p class="card-text">Address: <%= restaurant.address %></p>
-    <p class="card-text">Phone number: <%= restaurant.phone_number %></p>
-    <%= link_to "See details", restaurant_path(restaurant), class: "btn btn-primary"%>
-  </div>
-</div>
 <% end %>
